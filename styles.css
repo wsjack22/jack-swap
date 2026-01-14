@@ -289,6 +289,17 @@ main {
   font-weight: 600;
 }
 
+.token.ghost {
+  background: rgba(247, 242, 234, 0.08);
+  color: var(--ink);
+}
+
+.token-group {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .swap-meta {
   display: grid;
   gap: 10px;
@@ -310,6 +321,25 @@ main {
   display: grid;
   gap: 10px;
   margin-bottom: 12px;
+}
+
+.reserve-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.reserve-input {
+  width: 120px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(247, 242, 234, 0.12);
+  background: rgba(247, 242, 234, 0.08);
+  color: var(--ink);
 }
 
 .hint {

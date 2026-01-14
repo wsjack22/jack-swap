@@ -75,7 +75,10 @@
               <label id="payLabel">你支付</label>
               <input class="amount-input" id="amountIn" value="0.005" />
             </div>
-            <span class="token" id="tokenIn">ETH</span>
+            <div class="token-group">
+              <button class="token ghost" id="useMax">全部</button>
+              <span class="token" id="tokenIn">ETH</span>
+            </div>
           </div>
           <div class="swap-row">
             <div>
@@ -97,6 +100,10 @@
               <span>钱包</span>
               <strong id="walletStatus">未连接</strong>
             </div>
+          </div>
+          <div class="reserve-row">
+            <label for="reserveInput">预留 Gas (ETH)</label>
+            <input id="reserveInput" class="reserve-input" value="0.001" />
           </div>
           <div class="swap-actions">
             <button class="btn ghost full" id="quoteBtn">估算报价</button>

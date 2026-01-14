@@ -35,6 +35,8 @@ const tokenOutLabel = document.getElementById("tokenOut");
 const payLabel = document.getElementById("payLabel");
 const slippageLabel = document.getElementById("slippage");
 const networkStatus = document.getElementById("networkStatus");
+const useMaxBtn = document.getElementById("useMax");
+const reserveInput = document.getElementById("reserveInput");
 const quoteBtn = document.getElementById("quoteBtn");
 const swapBtn = document.getElementById("swapBtn");
 const hint = document.getElementById("swapHint");
@@ -154,6 +156,33 @@ const quoteSwap = async () => {
   return quoted;
 };
 
+const setMaxAmount = async () => {
+  if (!signer) {
+    await ensureWallet();
+  }
+  ensureMainnet();
+  const address = await signer.getAddress();
+  if (currentSide === "buy") {
+    const balance = await provider.getBalance(address);
+    const reserveValue =
+      reserveInput?.value && Number(reserveInput.value) > 0
+        ? reserveInput.value
+        : "0.001";
+    const reserve = ethers.parseEther(reserveValue);
+    const usable = balance > reserve ? balance - reserve : 0n;
+    amountInInput.value = ethers.formatEther(usable);
+  } else {
+    const tokenContract = new ethers.Contract(
+      SWAP_CONFIG.token,
+      erc20Abi,
+      signer
+    );
+    const balance = await tokenContract.balanceOf(address);
+    amountInInput.value = ethers.formatUnits(balance, 18);
+  }
+  amountOutLabel.textContent = "-";
+};
+
 const performSwap = async () => {
   if (!signer) {
     await ensureWallet();
@@ -240,11 +269,10 @@ connectBtn?.addEventListener("click", () => {
 
 if (window.ethereum) {
   window.ethereum.on("chainChanged", () => {
-    provider = new ethers.BrowserProvider(window.ethereum);
-    provider.getNetwork().then((network) => {
-      currentChainId = Number(network.chainId);
-      updateNetworkStatus();
-    });
+    window.location.reload();
+  });
+  window.ethereum.on("accountsChanged", () => {
+    window.location.reload();
   });
 }
 
@@ -256,6 +284,12 @@ quoteBtn?.addEventListener("click", () => {
 
 swapBtn?.addEventListener("click", () => {
   performSwap().catch((error) => {
+    hint.textContent = error.message;
+  });
+});
+
+useMaxBtn?.addEventListener("click", () => {
+  setMaxAmount().catch((error) => {
     hint.textContent = error.message;
   });
 });
