@@ -47,6 +47,13 @@ let signer;
 let currentSide = "buy";
 let currentChainId;
 
+if (!window.ethers) {
+  hint.textContent = "交易组件加载失败，请刷新或检查网络。";
+  quoteBtn?.setAttribute("disabled", "disabled");
+  swapBtn?.setAttribute("disabled", "disabled");
+  useMaxBtn?.setAttribute("disabled", "disabled");
+}
+
 const erc20Abi = [
   "function approve(address spender, uint256 value) external returns (bool)",
   "function allowance(address owner, address spender) external view returns (uint256)",
