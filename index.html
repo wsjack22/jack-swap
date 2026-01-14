@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Jack Swap</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=ZCOOL+XiaoWei&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="noise"></div>
+    <header class="hero">
+      <nav class="nav">
+        <div class="brand">
+          <span class="logo">JS</span>
+          <span class="name">Jack Swap</span>
+        </div>
+        <div class="nav-links">
+          <a href="#swap">Swap</a>
+          <a href="#stats">Stats</a>
+          <a href="#contracts">Contracts</a>
+        </div>
+        <button class="wallet" id="connectWallet">Connect Wallet</button>
+      </nav>
+
+      <div class="hero-content">
+        <div>
+          <p class="eyebrow">Jackshit 专属兑换</p>
+          <h1>只做一件事：
+            <span>JACKSHIT 与 ETH 互换</span></h1>
+          <p class="lead">
+            这是你的专属 DEX 前端首页，聚焦单一交易对。路由与合约地址
+            已锁定在你的 Jack Swap 部署。
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#swap">开始兑换</a>
+            <a class="btn ghost" href="#contracts">查看合约</a>
+          </div>
+        </div>
+        <div class="glow-card" data-reveal>
+          <div class="metric">
+            <span>当前池子</span>
+            <strong>JACKSHIT / WETH</strong>
+          </div>
+          <div class="metric">
+            <span>费率</span>
+            <strong>0.3%</strong>
+          </div>
+          <div class="metric">
+            <span>定位</span>
+            <strong>Only for Jack</strong>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="swap" id="swap">
+        <div class="panel" data-reveal>
+          <div class="panel-header">
+            <h2>Swap</h2>
+            <span class="badge">Jack Swap</span>
+          </div>
+          <div class="swap-toggle">
+            <button class="toggle active" data-side="buy">买入 JACKSHIT</button>
+            <button class="toggle" data-side="sell">卖出 JACKSHIT</button>
+          </div>
+          <div class="swap-row">
+            <div>
+              <label id="payLabel">你支付</label>
+              <input class="amount-input" id="amountIn" value="0.005" />
+            </div>
+            <span class="token" id="tokenIn">ETH</span>
+          </div>
+          <div class="swap-row">
+            <div>
+              <label>预计获得</label>
+              <div class="amount" id="amountOut">-</div>
+            </div>
+            <span class="token" id="tokenOut">JACKSHIT</span>
+          </div>
+          <div class="swap-meta">
+            <div>
+              <span>滑点</span>
+              <strong id="slippage">1%</strong>
+            </div>
+            <div>
+              <span>网络</span>
+              <strong id="networkStatus">未检测</strong>
+            </div>
+            <div>
+              <span>钱包</span>
+              <strong id="walletStatus">未连接</strong>
+            </div>
+          </div>
+          <div class="swap-actions">
+            <button class="btn ghost full" id="quoteBtn">估算报价</button>
+            <button class="btn primary full" id="swapBtn">确认交换</button>
+          </div>
+          <p class="hint" id="swapHint">当前仅支持 JACKSHIT/WETH 交易对。</p>
+        </div>
+
+        <div class="panel stats" id="stats" data-reveal>
+          <h3>池子快照</h3>
+          <div class="stat-row">
+            <span>Pool</span>
+            <strong>JACKSHIT/WETH 0.3%</strong>
+          </div>
+          <div class="stat-row">
+            <span>当前价格</span>
+            <strong>1 JACKSHIT = 0.0000000005 ETH</strong>
+          </div>
+          <div class="stat-row">
+            <span>区间</span>
+            <strong>±10x 区间</strong>
+          </div>
+          <div class="stat-row">
+            <span>流动性标签</span>
+            <strong>Owner Controlled</strong>
+          </div>
+        </div>
+      </section>
+
+      <section class="contracts" id="contracts">
+        <div class="section-title" data-reveal>
+          <h2>合约与地址</h2>
+          <p>全部来自你自己的主网部署，前端直接使用这些地址。</p>
+        </div>
+        <div class="address-grid">
+          <div class="address-card" data-reveal>
+            <h4>Jackshit Token</h4>
+            <p>0x7a2ECB9801089e0BdA27AC0244E3b090Ac26e3Ba</p>
+          </div>
+          <div class="address-card" data-reveal>
+            <h4>SwapRouter</h4>
+            <p>0xd959AbbC4920164A6f2B81487280693ad7DcF8AA</p>
+          </div>
+          <div class="address-card" data-reveal>
+            <h4>Position Manager</h4>
+            <p>0x753FD456e5F133E350e15C5277F5f68efA97682e</p>
+          </div>
+          <div class="address-card" data-reveal>
+            <h4>Pool</h4>
+            <p>0xD1d3E090F7B2AeeE93e4ACCe6e5d778Fe1741525</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>Jack Swap · Mainnet only · 0.3% Fee</div>
+      <a href="#swap">Back to Swap</a>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.16.0/dist/ethers.umd.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
